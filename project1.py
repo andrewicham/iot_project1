@@ -8,7 +8,8 @@ LedPinTwo = 16
 BtnOnePin = 18
 BtnTwoPin = 22
 
-
+buttonToggle = True
+buttonToggleTwo = True
 
 def setup():
     GPIO.setmode(GPIO.BOARD)
@@ -25,8 +26,8 @@ def setup():
 def lightOne():
     flashTime = 2
     counter = 0
-    buttonToggle = True
-    buttonToggleTwo = True
+    global buttonToggle
+    global buttonToggleTwo
     while True:
         GPIO.output(LedPinOne, GPIO.LOW)
         time.sleep(flashTime)
@@ -53,8 +54,8 @@ def lightOne():
 def lightTwo():
 	flashTime = 0.5
 	counter = 0
-	buttonToggle = True
-	buttonToggleTwo = False
+	global buttonToggle
+	global buttonToggleTwo
 	while True:
 		GPIO.output(LedPinTwo, GPIO.LOW)
 		time.sleep(flashTime)
@@ -65,7 +66,7 @@ def lightTwo():
 			buttonToggleTwo = not buttonToggleTwo
 			print('button 2 toggled')
 		
-		if buttonToggleTwo == True:
+		if buttonToggleTwo == False:
 		    if GPIO.event_detected(BtnOnePin):
 			    buttonToggle = not buttonToggle
 			    print('button 1 toggled')
@@ -76,7 +77,7 @@ def lightTwo():
 				counter = counter + 1
 			elif counter == 3:
 				counter = 0
-				flashTime = 2
+				flashTime = 0.5
 
     
 
